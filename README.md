@@ -1,36 +1,211 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🏠 Boarding Solution
 
-## Getting Started
+> The ultimate platform to find boarding accommodations and roommates in Sri Lanka
 
-First, run the development server:
+[![Next.js](https://img.shields.io/badge/Next.js-14-black)](https://nextjs.org/)
+[![Firebase](https://img.shields.io/badge/Firebase-Latest-orange)](https://firebase.google.com/)
+[![React](https://img.shields.io/badge/React-18-blue)](https://reactjs.org/)
+[![License](https://img.shields.io/badge/License-MIT-green)](LICENSE)
+
+## ✨ Features
+
+### 🎓 For Students
+- 📍 **Interactive Map View** - Browse all available listings on an interactive map
+- 🔍 **Advanced Filtering** - Filter by price range, gender preference, and amenities
+- ❤️ **Favorites System** - Save and manage your favorite listings
+- ⭐ **Reviews & Ratings** - Read reviews from other students and share your experience
+- 🤝 **Roommate Finder** - Find compatible roommates to share accommodations
+- 📱 **WhatsApp Integration** - Contact brokers instantly via WhatsApp
+- 🗺️ **Navigation** - Get directions to any property using Google Maps
+- 🔐 **Secure Authentication** - Login with email/password
+- 👤 **User Profile** - Manage your profile with photo upload
+- 📧 **Email Verification** - Verify your account for added security
+
+### 🏢 For Brokers
+- 📸 **Image Upload** - Add multiple photos to your listings (Base64 storage)
+- 📝 **Listing Management** - Create, edit, and manage all your properties
+- 💰 **Dynamic Pricing** - Set monthly rent in LKR
+- ✅ **Amenities** - Highlight features like WiFi, AC, Food, Attached Bathroom
+- 📊 **Dashboard** - View and manage all your listings in one place
+- ✓ **Status Management** - Mark properties as Available or Sold Out
+- 🗺️ **Auto-Geocoding** - Addresses are automatically converted to GPS coordinates
+
+### 👨‍💼 For Admins
+- 📊 **Real-time Analytics** - Monitor users, listings, and platform activity
+- 🚩 **Report Management** - Review and handle user reports
+- ✅ **Content Moderation** - Approve or remove inappropriate content
+- 📈 **Revenue Tracking** - View total platform value
+- 👥 **User Management** - Monitor registered users
+
+## 🚀 Tech Stack
+
+- **Framework**: Next.js 14 (React 18)
+- **Database**: Firebase Firestore
+- **Authentication**: Firebase Auth
+- **Storage**: Base64 (for images) - No paid plan required!
+- **Maps**: React Leaflet + OpenStreetMap
+- **Geocoding**: Google Maps Geocoding API
+- **Mobile**: Capacitor (for Android app)
+- **Styling**: Custom CSS with Glassmorphism
+
+## 📦 Quick Start
 
 ```bash
+# Clone the repository
+git clone <your-repo-url>
+cd Boarding-solution
+
+# Install dependencies
+npm install
+
+# Run development server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+## 📖 Full Setup Guide
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+For complete setup instructions including Firebase, Google Maps API, and Android build, see [SETUP_GUIDE.md](./SETUP_GUIDE.md)
 
-## Learn More
+## 🏗️ Project Structure
 
-To learn more about Next.js, take a look at the following resources:
+```
+Boarding-solution/
+├── src/
+│   ├── app/
+│   │   ├── auth/
+│   │   │   ├── login/          # Login page
+│   │   │   ├── register/       # Registration page
+│   │   │   └── forgot-password/ # Password reset
+│   │   ├── student/
+│   │   │   └── dashboard/      # Student dashboard with map
+│   │   ├── broker/
+│   │   │   └── dashboard/      # Broker dashboard
+│   │   ├── admin/
+│   │   │   └── dashboard/      # Admin panel
+│   │   ├── profile/            # User profile page
+│   │   ├── favorites/          # Saved listings
+│   │   ├── roommates/          # Roommate finder
+│   │   └── page.js             # Landing page
+│   ├── components/
+│   │   ├── Map.js              # Interactive map component
+│   │   └── BottomNav.js        # Bottom navigation
+│   └── lib/
+│       ├── firebase.js         # Firebase configuration
+│       └── utils.js            # Utility functions
+├── public/                     # Static assets
+├── android/                    # Capacitor Android project
+├── firestore.rules            # Firebase security rules
+├── SETUP_GUIDE.md             # Complete setup instructions
+└── ANDROID_BUILD.md           # Android build guide
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🎨 Key Features Explained
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Base64 Image Storage
+We use Base64 encoding for images to:
+- ✅ Avoid Firebase Storage costs
+- ✅ Simplify setup (no storage bucket needed)
+- ✅ Work on free tier
+- ⚡ Images are auto-compressed to ~500KB
 
-## Deploy on Vercel
+### Real Geocoding
+Addresses are automatically converted to GPS coordinates using Google Maps Geocoding API:
+- Accurate map markers
+- Proper location-based search
+- Distance calculations
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Security
+- Firebase Authentication for user management
+- Firestore Security Rules for data protection
+- Role-based access control
+- Email verification
+- Password reset functionality
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 📱 Building for Android
+
+```bash
+# Build the web app
+npm run build
+
+# Sync with Android
+npx cap sync android
+
+# Open in Android Studio
+npx cap open android
+```
+
+See [ANDROID_BUILD.md](./ANDROID_BUILD.md) for detailed instructions.
+
+## 🌐 Deployment
+
+### Vercel (Recommended)
+```bash
+# Push to GitHub, then deploy on Vercel
+# Add environment variables:
+# - NEXT_PUBLIC_GOOGLE_MAPS_API_KEY
+```
+
+### Netlify
+```bash
+# Build command: npm run build
+# Publish directory: out
+```
+
+## 🔐 Environment Variables
+
+Create a `.env.local` file:
+```env
+NEXT_PUBLIC_GOOGLE_MAPS_API_KEY=your_google_maps_api_key
+```
+
+## 📝 Firebase Configuration
+
+Update `src/lib/firebase.js` with your Firebase config:
+```javascript
+const firebaseConfig = {
+  apiKey: "YOUR_API_KEY",
+  authDomain: "YOUR_PROJECT.firebaseapp.com",
+  projectId: "YOUR_PROJECT_ID",
+  // ... other config
+};
+```
+
+## 🎯 Use Cases
+
+- 🎓 **University Students** - Find affordable boarding near campus
+- 👥 **Roommate Matching** - Connect with compatible roommates
+- 🏢 **Property Brokers** - List and manage rental properties
+- 🔍 **Smart Search** - Filter by budget, location, and preferences
+
+## 🛠️ Available Scripts
+
+```bash
+npm run dev          # Start development server
+npm run build        # Build for production
+npm start            # Start production server
+npm run lint         # Run ESLint
+```
+
+## 🤝 Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## 📄 License
+
+This project is licensed under the MIT License.
+
+## 🙏 Acknowledgments
+
+- Next.js team for the amazing framework
+- Firebase for backend services
+- OpenStreetMap for map tiles
+- React Leaflet for map integration
+- Lucide React for beautiful icons
+
+---
+
+**Made with ❤️ for students in Sri Lanka**
+
+For questions or support, please check the [SETUP_GUIDE.md](./SETUP_GUIDE.md)

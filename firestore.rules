@@ -1,0 +1,85 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Users collection - users can only read/write their own data
+    match /users/{userId} {
+      allow read: if request.auth != null;
+      allow write: if request.auth != null && request.auth.uid == userId;
+    }
+    
+    // Listings collection
+    match /listings/{listingId} {
+      // Anyone can read available listings
+      allow read: if true;
+      
+      // Only authenticated brokers can create listings
+      allow create: if request.auth != null 
+                    && request.resource.data.brokerId == request.auth.uid;
+      
+      // Only the listing owner can update/delete their listings
+      allow update, delete: if request.auth != null 
+                            && resource.data.brokerId == request.auth.uid;
+    }
+    
+    // Reviews collection
+    match /reviews/{reviewId} {
+      // Anyone can read reviews
+      allow read: if true;
+      
+      // Only authenticated users can create reviews
+      allow create: if request.auth != null 
+                    && request.resource.data.userId == request.auth.uid;
+      
+      // Only review author can update/delete
+      allow update, delete: if request.auth != null 
+                            && resource.data.userId == request.auth.uid;
+    }
+    
+    // Favorites collection
+    match /favorites/{favoriteId} {
+      // Users can only read their own favorites
+      allow read: if request.auth != null 
+                  && resource.data.userId == request.auth.uid;
+      
+      // Users can only create/delete their own favorites
+      allow create, delete: if request.auth != null 
+                            && request.resource.data.userId == request.auth.uid;
+    }
+    
+    // Roommate posts collection
+    match /roommates/{roommateId} {
+      // Anyone can read roommate posts
+      allow read: if true;
+      
+      // Only authenticated users can create posts
+      allow create: if request.auth != null 
+                    && request.resource.data.userId == request.auth.uid;
+      
+      // Only post author can update/delete
+      allow update, delete: if request.auth != null 
+                            && resource.data.userId == request.auth.uid;
+    }
+    
+    // Chat messages collection
+    match /chats/{chatId}/messages/{messageId} {
+      // Only chat participants can read messages
+      allow read: if request.auth != null 
+                  && (request.auth.uid in resource.data.participants);
+      
+      // Only authenticated users can send messages
+      allow create: if request.auth != null 
+                    && request.resource.data.senderId == request.auth.uid;
+    }
+    
+    // Reports collection (for flagging inappropriate content)
+    match /reports/{reportId} {
+      // Only authenticated users can create reports
+      allow create: if request.auth != null;
+      
+      // Only admins can read/update reports (you'll need to set admin UIDs)
+      allow read, update: if request.auth != null 
+                          && request.auth.uid in ['YOUR_ADMIN_UID_HERE'];
+    }
+  }
+}
