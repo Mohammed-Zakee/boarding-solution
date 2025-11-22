@@ -72,7 +72,7 @@ export default function ForgotPassword() {
                         <h1 style={{ fontSize: '1.75rem', fontWeight: 'bold', marginBottom: '1rem' }}>
                             Email Sent! ✅
                         </h1>
-                        <p style={{ color: '#94a3b8', marginBot tom: '2rem', lineHeight: '1.6' }}>
+                        <p style={{ color: '#94a3b8', marginBottom: '2rem', lineHeight: '1.6' }}>
                             We've sent a password reset link to <strong style={{ color: 'var(--primary)' }}>{email}</strong>.
                             <br />Check your inbox and follow the instructions.
                         </p>
